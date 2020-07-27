@@ -18,3 +18,8 @@ function createWindow () {
 }
 
 app.whenReady().then(createWindow)
+
+function testaroo() {
+  return 'kablamo!'
+}
+exports.testaroo = testaroo
