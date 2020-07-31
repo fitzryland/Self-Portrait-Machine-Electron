@@ -35,6 +35,11 @@ class Capture extends React.Component {
     let countdownI = 5;
     let intervalId = setInterval(() => {
       console.log(countdownI)
+      let newMessage = ( countdownI === 0 ? 'KABLAMO!!' : countdownI )
+      newMessage = <p>{newMessage}</p>
+      this.props.stateHandler({
+        message: newMessage
+      })
       if ( countdownI <= 0 ) {
         console.log('KABLAMO!!')
         this.takePhoto()
@@ -44,8 +49,10 @@ class Capture extends React.Component {
     }, 1000)
   }
   componentDidMount() {
-    console.log('componentDidMount')
     let startCountdown = this.startCountdown
+    this.props.stateHandler({
+      message: ''
+    })
     width = window.innerWidth
     video = document.getElementById('camera')
     canvas = document.getElementById('canvas')
@@ -76,7 +83,10 @@ class Capture extends React.Component {
           id="camera"
           autoplay
         ></video>
-        <canvas id="canvas"></canvas>
+        <canvas
+          className="capture_canvas"
+          id="canvas"
+        ></canvas>
       </div>
     )
   }

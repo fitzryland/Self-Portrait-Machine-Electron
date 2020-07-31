@@ -2,7 +2,6 @@ const { app, BrowserWindow } = require('electron')
 require('electron-reload')(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`)
 });
-
 function createWindow () {
   // Create the browser window.
   const win = new BrowserWindow({
@@ -12,15 +11,7 @@ function createWindow () {
       nodeIntegration: true
     }
   })
-
-  // and load the index.html of the app.
   win.loadFile('index.html')
-  win.setFullScreen(true)
+  // win.setFullScreen(true)
 }
-
 app.whenReady().then(createWindow)
-
-function testaroo() {
-  return 'kablamo!'
-}
-exports.testaroo = testaroo
