@@ -7,16 +7,10 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
   </head>
   <body>
-    <!-- <video id="camera" autoplay> </video>
-    <script>
-      navigator.mediaDevices.getUserMedia({video: true})
-        .then(function(stream) {
-          document.getElementById('camera').srcObject = stream;
-        }).catch(function() {
-          alert('could not connect stream');
-        });
-    </script> -->
-    <div id="root"></div>
+    <div
+      id="root"
+      class="app_root"
+    ></div>
     <script>
       const fs = require('fs');
     </script>

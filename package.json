@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "build": "npx webpack",
-    "start": "npx webpack --watch",
+    "start": "npx webpack --watch && electron .",
     "serve": "electron ."
   },
   "devDependencies": {
@@ -12,7 +12,9 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
+    "css-loader": "^4.1.1",
     "electron": "^9.1.1",
+    "style-loader": "^1.2.1",
     "webpack": "^4.44.0",
     "webpack-cli": "^3.3.12"
   },

@@ -1,20 +1,20 @@
 import React from 'react'
 
 let imgDir = './images'
+let intervalId = false;
 
 class Slideshow extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       curFile: '',
-      curFileI: '',
-      files: []
+      curFileI: 0,
+      files: [],
     }
     this.nextImg = this.nextImg.bind(this)
   }
   componentDidMount() {
     fs.readdir(imgDir, (err, files) => {
-      console.log('files', files)
       let fullFiles = []
       files.forEach((file, i) => {
         fullFiles.push(imgDir + '/' + file)
@@ -22,46 +22,45 @@ class Slideshow extends React.Component {
       this.setState(({
         files: fullFiles
       }))
+      this.setImg()
       this.nextImg()
+    })
+    document.addEventListener("keydown", event => {
+      if ( event.key === 'ArrowLeft' || event.key === 'ArrowRight' ) {
+        this.props.modeHandler('capture')
+      }
     })
   }
   componentWillUnmount() {
-    // @TODO don't forget to clear the interval
+    clearInterval(intervalId)
+  }
+  setImg() {
+    let curFileI = this.state.curFileI + 1
+    if ( curFileI >= this.state.files.length ) {
+      curFileI = 0
+    }
+    this.setState({
+      curFile: this.state.files[curFileI],
+      curFileI: curFileI
+    })
   }
   nextImg() {
-    console.log('nextImg')
-    console.log('this.state.files.length', this.state.files.length)
-    setInterval(() => {
-      let curFileI = ++this.state.curFileI
-      if ( curFileI >= this.state.files.length ) {
-        curFileI = 0
-      }
-      console.log('curFileI', curFileI)
-      this.setState({
-        curFile: this.state.files[curFileI],
-        curFileI: curFileI
-      })
-    }, 1000)
+    intervalId = setInterval(() => {
+      this.setImg()
+    }, 6000)
   }
   render() {
-    console.log('this.state.files', this.state.files)
-    let curImg = '';
+    let imgStyle = {}
     if ( this.state.curFile ) {
-      let imgStyle = {
+      imgStyle = {
         backgroundImage: 'url(' + this.state.curFile + ')',
-        backgroundSize: 'cover',
-        backgorundPosition: 'center center',
-        backgorundRepeat: 'no-repeat',
-        display: 'block',
-        height: '200px',
-        width: '100%',
       }
-      curImg = (<div style={imgStyle} src={this.state.curFile}></div>)
     }
     return (
-      <div>
-        {curImg}
-      </div>
+      <div
+        className="slideshow"
+        style={imgStyle}
+      ></div>
     )
   }
 }

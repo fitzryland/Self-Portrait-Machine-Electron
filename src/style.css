@@ -1,0 +1,28 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+.app_root,
+.app_wrap,
+.slideshow,
+.capture_wrap,
+.capture_video {
+  height: 100%;
+  width: 100%;
+}
+.slideshow {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.capture_wrap {}
+.capture_video {
+  transform: scaleX(-1);
+}
