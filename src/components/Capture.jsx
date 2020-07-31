@@ -6,6 +6,7 @@ let canvas = false
 let width = 0
 // let height = window.innerHeight
 let height = 0
+let intervalId
 
 class Capture extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Capture extends React.Component {
   }
   takePhoto() {
     console.log('takePhoto')
+    clearInterval(intervalId)
     var context = canvas.getContext('2d');
     if (width && height) {
       canvas.width = width;
@@ -33,7 +35,7 @@ class Capture extends React.Component {
   }
   startCountdown() {
     let countdownI = 5;
-    let intervalId = setInterval(() => {
+    intervalId = setInterval(() => {
       console.log(countdownI)
       let newMessage = ( countdownI === 0 ? 'KABLAMO!!' : countdownI )
       newMessage = <p>{newMessage}</p>
@@ -43,13 +45,30 @@ class Capture extends React.Component {
       if ( countdownI <= 0 ) {
         console.log('KABLAMO!!')
         this.takePhoto()
-        clearInterval(intervalId)
       }
       --countdownI
     }, 1000)
   }
+  keydownHandler(event) {
+    // @TODO this is not properly referenced here
+    // if ( event.key === 'ArrowLeft' ) {
+    //   this.takePhoto()
+    // }
+    // } else if ( event.key === 'ArrowRight' ) {
+    //   this.props.stateHandler({
+    //     mode: 'idle',
+    //     message: this.props.messages.aborted
+    //   })
+    //   setTimeout(() => {
+    //     this.props.stateHandler({
+    //       message: this.props.messges.idle
+    //     })
+    //   }, 5000)
+    // }
+  }
   componentDidMount() {
     let startCountdown = this.startCountdown
+    // document.addEventListener("keydown", this.keydownHandler.bind(this))
     this.props.stateHandler({
       message: ''
     })
@@ -74,7 +93,9 @@ class Capture extends React.Component {
         startCountdown()
       })
   }
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    // document.removeEventListener("keydown", this.keydownHandler)
+  }
   render() {
     return (
       <div className="capture_wrap">

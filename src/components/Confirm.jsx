@@ -11,11 +11,9 @@ class Confirm extends React.Component {
         capturedImage: '',
         message: verdict,
       })
-    let stHdlr = this.props.stateHandler
-    let msgs = this.props.messages
     setTimeout(() => {
-      stHdlr({
-        message: msgs.idle
+      this.props.stateHandler({
+        message: this.props.messages.idle
       })
     }, 5000)
   }
@@ -38,6 +36,9 @@ class Confirm extends React.Component {
     this.props.stateHandler({
       message: this.props.messages.approval
     })
+    setTimeout(() => {
+      this.returnToIdle(this.props.messages.rejected)
+    }, 30000)
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.keydownHandler)

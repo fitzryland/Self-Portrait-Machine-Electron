@@ -21,6 +21,7 @@ class App extends React.Component {
                   </div>,
         approved: <p>the photo has been added to the slideshow</p>,
         rejected: <p>the photo has been deleted</p>,
+        aborted: <p>your photo was not taken</p>,
       }
     }
     this.stateHandler = this.stateHandler.bind(this)
