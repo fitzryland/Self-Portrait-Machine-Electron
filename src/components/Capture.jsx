@@ -3,7 +3,7 @@ import React from 'react'
 let video = false
 let canvas = false
 // @TODO will need to be adjusted for whatever screen I end up using
-let width = window.innerWidth
+let width = 0
 // let height = window.innerHeight
 let height = 0
 
@@ -46,6 +46,7 @@ class Capture extends React.Component {
   componentDidMount() {
     console.log('componentDidMount')
     let startCountdown = this.startCountdown
+    width = window.innerWidth
     video = document.getElementById('camera')
     canvas = document.getElementById('canvas')
     navigator.mediaDevices.getUserMedia({video: true})
