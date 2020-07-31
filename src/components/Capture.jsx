@@ -2,7 +2,9 @@ import React from 'react'
 
 let video = false
 let canvas = false
-let width = 500 // @TODO need to update to bigger size
+// @TODO will need to be adjusted for whatever screen I end up using
+let width = window.innerWidth
+// let height = window.innerHeight
 let height = 0
 
 class Capture extends React.Component {
