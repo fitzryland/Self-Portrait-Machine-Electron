@@ -1,30 +1,34 @@
 import React from 'react'
 import Slideshow from './Slideshow'
 import Capture from './Capture'
+import Confirm from './Confirm'
 import '../style.css'
-
-
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       mode: 'idle', // idle, capture, confirm
-      message: ''
+      capturedImage: '',
+      message: '',
     }
-    this.modeHandler = this.modeHandler.bind(this)
+    this.stateHandler = this.stateHandler.bind(this)
   }
-  modeHandler(newMode, message) {
-    this.setState({
-      message: message,
-      mode: newMode
-    })
+  stateHandler(stateUpdates) {
+    if ( typeof stateUpdates === 'object' ) {
+      this.setState(stateUpdates)
+    }
   }
   render() {
     let curScreen = ''
     if ( this.state.mode === 'idle' ) {
-      curScreen = <Slideshow modeHandler={this.modeHandler} />
+      curScreen = <Slideshow stateHandler={this.stateHandler} />
     } else if ( this.state.mode === 'capture' ) {
-      curScreen = <Capture modeHandler={this.modeHandler} />
+      curScreen = <Capture stateHandler={this.stateHandler} />
+    } else if ( this.state.mode === 'confirm' ) {
+      curScreen = <Confirm
+                    stateHandler={this.stateHandler}
+                    capturedImage={this.state.capturedImage}
+                  />
     }
     return (
       <div className="app_wrap">
@@ -33,8 +37,4 @@ class App extends React.Component {
     )
   }
 }
-        // <div className="app_message">
-        //   {this.state.message}
-        // </div>
-
 export default App

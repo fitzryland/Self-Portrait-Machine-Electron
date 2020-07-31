@@ -11,7 +11,12 @@ class Slideshow extends React.Component {
       curFileI: 0,
       files: [],
     }
-    this.nextImg = this.nextImg.bind(this)
+    this.keydownHandler = this.keydownHandler.bind(this)
+  }
+  keydownHandler(event) {
+    if ( event.key === 'ArrowLeft' || event.key === 'ArrowRight' ) {
+      this.props.stateHandler({mode: 'capture'})
+    }
   }
   componentDidMount() {
     fs.readdir(imgDir, (err, files) => {
@@ -25,14 +30,11 @@ class Slideshow extends React.Component {
       this.setImg()
       this.nextImg()
     })
-    document.addEventListener("keydown", event => {
-      if ( event.key === 'ArrowLeft' || event.key === 'ArrowRight' ) {
-        this.props.modeHandler('capture')
-      }
-    })
+    document.addEventListener("keydown", this.keydownHandler)
   }
   componentWillUnmount() {
     clearInterval(intervalId)
+    document.removeEventListener("keydown", this.keydownHandler)
   }
   setImg() {
     let curFileI = this.state.curFileI + 1
