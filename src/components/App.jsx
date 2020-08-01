@@ -17,7 +17,7 @@ class App extends React.Component {
         approval: <div className="approval">
                     <p className="approval_left">press the green button to add this photo</p>
                     <p className="approval_right">press the red button to delete this photo</p>
-                    <p className="approval_small">this photo will be automatically deleted in 30 seconds if you do not press the green button</p>
+                    <p className="approval_small">this photo will be automatically deleted in <span id="countdown">30</span> seconds if you do not press the green button</p>
                   </div>,
         approved: <p>the photo has been added to the slideshow</p>,
         rejected: <p>the photo has been deleted</p>,
@@ -26,9 +26,9 @@ class App extends React.Component {
     }
     this.stateHandler = this.stateHandler.bind(this)
   }
-  stateHandler(stateUpdates) {
+  stateHandler(stateUpdates, callback = () => {}) {
     if ( typeof stateUpdates === 'object' ) {
-      this.setState(stateUpdates)
+      this.setState(stateUpdates, callback)
     }
   }
   componentDidMount() {
@@ -66,13 +66,3 @@ class App extends React.Component {
   }
 }
 export default App
-// press the green button to add a photo of yourself
-// count down 5.. 4... 3...
-// press the green button to add this photo
-// press the red button to delete this photo
-  // the photo will be automatically deleted in 30 seconds
-  // if you do not press the green button
-// if red
-  // the photo has been deleted
-// if green
-  // the photo has been added to the slideshow
