@@ -12,6 +12,6 @@ function createWindow () {
     }
   })
   win.loadFile('index.html')
-  // win.setFullScreen(true)
+  win.setFullScreen(true)
 }
 app.whenReady().then(createWindow)
